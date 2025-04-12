@@ -5,15 +5,12 @@ app = Flask(__name__)
 
 @app.route("/webhook", methods=["POST"])
 def whatsapp_webhook():
-    from twitter import agent, twitter_tool
+    from twitter import agent
     
-    twitter_tool.has_posted = False
     user_input = request.form.get("Body")
     
-    # Add space between the instruction and user input
     response = agent.invoke("post tweet if asked, otherwise just respond to the user: " + user_input)
     
-    # Extract the response text based on the response format
     if isinstance(response, dict) and 'output' in response:
         response_text = response['output']
     elif hasattr(response, "return_values") and "output" in response.return_values:
