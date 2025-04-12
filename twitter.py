@@ -26,8 +26,20 @@ def post_to_twitter(text: str) -> str:
     client = authenticate_twitter()
     response = client.create_tweet(text=text)
     return f"Tweet posted successfully with ID: {response.data['id']}"
-    
 
+
+# Create twitter_tool object with has_posted attribute
+class TwitterTool:
+    def __init__(self, post_function):
+        self.post_function = post_function
+        self.has_posted = False
+    
+    def post(self, text):
+        self.has_posted = True
+        return self.post_function(text)
+
+twitter_tool = TwitterTool(post_to_twitter)
+    
 
 tools = [
     Tool.from_function(
