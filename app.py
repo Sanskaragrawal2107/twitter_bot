@@ -13,11 +13,11 @@ def whatsapp_webhook():
     # Add space between the instruction and user input
     response = agent.invoke("post tweet if asked, otherwise just respond to the user: " + user_input)
     
-    # Get the response text - depending on the agent's output format
-    # For newer LangChain versions
-    if hasattr(response, "return_values") and "output" in response.return_values:
+    # Extract the response text based on the response format
+    if isinstance(response, dict) and 'output' in response:
+        response_text = response['output']
+    elif hasattr(response, "return_values") and "output" in response.return_values:
         response_text = response.return_values["output"]
-    # Fallback for direct output
     else:
         response_text = str(response)
     
