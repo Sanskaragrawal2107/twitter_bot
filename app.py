@@ -11,15 +11,9 @@ def whatsapp_webhook():
     
     response = agent.invoke("post tweet if asked, otherwise just respond to the user: " + user_input)
     
-    if isinstance(response, dict) and 'output' in response:
-        response_text = response['output']
-    elif hasattr(response, "return_values") and "output" in response.return_values:
-        response_text = response.return_values["output"]
-    else:
-        response_text = str(response)
     
     reply = MessagingResponse()
-    reply.message(response_text)
+    reply.message(response)
     return str(reply)
 
 if __name__ == "__main__":
