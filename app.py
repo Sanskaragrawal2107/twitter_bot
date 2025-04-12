@@ -13,7 +13,7 @@ def whatsapp_webhook():
     
     
     reply = MessagingResponse()
-    reply.message(response)
+    reply.message(str(response))
     return str(reply)
 
 if __name__ == "__main__":
