@@ -9,7 +9,7 @@ def whatsapp_webhook():
     
     twitter_tool.has_posted = False
     user_input = request.form.get("Body")
-    response = agent.run("Post only ONE tweet: " + user_input)
+    response = agent.run("post a tweet if asked otherwise respond to user" + user_input)
 
     reply = MessagingResponse()
     reply.message(str(response))
