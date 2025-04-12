@@ -6,7 +6,6 @@ from langchain.agents import initialize_agent, Tool
 from langchain.agents.agent_types import AgentType
 from langchain.tools import tool
 
-
 load_dotenv()
 
 def authenticate_twitter():
@@ -19,15 +18,12 @@ def authenticate_twitter():
     )
     return client
 
-
 @tool
 def post_to_twitter(text: str) -> str:
     """ (max of 280 characters). If you are asked to post a tweet, use this tool."""
     client = authenticate_twitter()
     response = client.create_tweet(text=text)
     return f"Tweet posted successfully with ID: {response.data['id']}"
-    
-
 
 tools = [
     Tool.from_function(
@@ -37,9 +33,7 @@ tools = [
     )
 ]
 
-
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7,api_key=os.getenv("GOOGLE_API_KEY"))
-
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7, api_key=os.getenv("GOOGLE_API_KEY"))
 
 agent = initialize_agent(
     tools=tools,
@@ -47,7 +41,6 @@ agent = initialize_agent(
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True
 )
-
 
 if __name__ == "__main__":
     while True:
