@@ -9,7 +9,7 @@ def whatsapp_webhook():
     
     user_input = request.form.get("Body")
     
-    response = agent.invoke("post tweet if asked, otherwise just respond to the user and alsor reply in string format only: " + user_input)
+    response = agent.invoke("post tweet if asked, otherwise just respond to the user: " + user_input)
     
     
     reply = MessagingResponse()
