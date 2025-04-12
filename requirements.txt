@@ -1,0 +1,7 @@
+tweepy
+python-dotenv
+langchain
+langchain-google-genai
+flask
+twilio 
+gunicorn
