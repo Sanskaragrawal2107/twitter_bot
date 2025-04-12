@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/webhook", methods=["POST"])
 def whatsapp_webhook():
-    from twitter import agent, twitter_tool
+    from twitter import agent,tool
     
     twitter_tool.has_posted = False
     user_input = request.form.get("Body")
