@@ -9,11 +9,22 @@ def whatsapp_webhook():
     
     twitter_tool.has_posted = False
     user_input = request.form.get("Body")
-    response = agent.run("post a tweet if asked otherwise respond to user" + user_input)
-
+    
+    # Add space between the instruction and user input
+    response = agent.invoke("post tweet if asked, otherwise just respond to the user: " + user_input)
+    
+    # Get the response text - depending on the agent's output format
+    # For newer LangChain versions
+    if hasattr(response, "return_values") and "output" in response.return_values:
+        response_text = response.return_values["output"]
+    # Fallback for direct output
+    else:
+        response_text = str(response)
+    
     reply = MessagingResponse()
-    reply.message(str(response))
+    reply.message(response_text)
     return str(reply)
+
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
